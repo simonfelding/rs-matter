@@ -6,8 +6,10 @@ The default `onoff_light_switch` example is a binding-based Matter switch that
 must be commissioned and bound by another controller. It is not a replacement
 for Home Assistant's Matter Server.
 
-Run **Flint 2 ARM64 example container** from the Actions tab on the
-`flint2-arm64-container` branch. Select the example to build. The workflow uses a
+The workflow builds on changes to the container files on the
+`flint2-arm64-container` branch. Once the workflow is also present on the fork's
+default branch, it can be dispatched manually from the Actions tab with a
+choice of example. The workflow uses a
 native ARM64 runner, compiles with the RustCrypto backend inherited from
 upstream, verifies there is no dynamic ELF interpreter, and publishes a
 `scratch` image to GHCR. Image layers use gzip and Docker media types for the

@@ -1,6 +1,12 @@
 name: Flint 2 ARM64 example container
 
 on:
+  push:
+    branches: [flint2-arm64-container]
+    paths:
+      - Dockerfile.flint2
+      - .dockerignore
+      - .github/workflows/flint2-arm64.yml
   workflow_dispatch:
     inputs:
       binary:
@@ -37,7 +43,7 @@ jobs:
         id: image
         env:
           REPOSITORY: ${{ github.repository }}
-          BINARY: ${{ inputs.binary }}
+          BINARY: ${{ inputs.binary || 'onoff_light_switch' }}
         run: |
           image="ghcr.io/${REPOSITORY,,}-flint2-example"
           echo "name=$image" >> "$GITHUB_OUTPUT"
@@ -47,7 +53,7 @@ jobs:
           context: .
           file: Dockerfile.flint2
           platforms: linux/arm64
-          build-args: BINARY=${{ inputs.binary }}
+          build-args: BINARY=${{ inputs.binary || 'onoff_light_switch' }}
           provenance: false
           sbom: false
           outputs: type=image,name=${{ steps.image.outputs.name }}:${{ steps.image.outputs.tag }},push=true,oci-mediatypes=false,compression=gzip,force-compression=true
